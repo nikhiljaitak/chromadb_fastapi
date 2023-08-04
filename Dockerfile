@@ -12,7 +12,7 @@ RUN pip install -r requirements.txt
 
 #COPY Models /app/Models
 COPY app_enum.py /app/app_enum.py
-COPY controller_.py /app/ChromaDBRepository.py
+COPY ChromaDBRepository.py /app/ChromaDBRepository.py
 COPY main.py /app/main.py
 # Set up Nginx
 # Remove default Nginx configuration
