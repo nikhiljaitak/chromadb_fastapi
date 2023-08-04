@@ -19,7 +19,7 @@ class ChromaDBRepository:
             print(len(self.collection.get(ids=[unique_id])['ids']))
             if len(self.collection.get(ids=[unique_id])['ids']) >0:
                 exception_message=f"Prompt already exists having unique_id:{unique_id}"
-                raise Exception(exception_message)
+                return exception_message
             
             print("prompt doesnt exist")
             self.collection.add(
@@ -30,6 +30,7 @@ class ChromaDBRepository:
                 ids=[unique_id]
             )
             print("prompt added successfully")  
+            return "success"
          
     def get_by_unique_id(self, unique_id):
         return self.collection.get(include=['embeddings', 'documents', 'metadatas'], ids=[unique_id])

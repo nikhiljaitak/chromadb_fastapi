@@ -56,13 +56,20 @@ async def process_form(body: validate_request_body):
     all_objects=None
     try:
         
-        chroma_obj.add_prompt(input_dictionary['prompt'], input_dictionary['response1'], input_dictionary['response2'], input_dictionary['task'], input_dictionary['task_id'], input_dictionary['unique_id'], input_dictionary['category'], input_dictionary['project_id'], input_dictionary['status'])
-        retrieved_object=chroma_obj.get_by_unique_id(input_dictionary['unique_id'])
-        all_objects=chroma_obj.get_all()
-        status = input_dictionary['status']
-        message="successfully saved into vdb"
+        result = chroma_obj.add_prompt(input_dictionary['prompt'], input_dictionary['response1'], input_dictionary['response2'], input_dictionary['task'], input_dictionary['task_id'], input_dictionary['unique_id'], input_dictionary['category'], input_dictionary['project_id'], input_dictionary['status'])
+        
+        if result == "success":
+            
+            retrieved_object=chroma_obj.get_by_unique_id(input_dictionary['unique_id'])
+            all_objects=chroma_obj.get_all()
+            status = input_dictionary['status']
+            message="successfully saved into vdb"
+        else:
+            
+            status="error"
+            print(f"An error occurred: {e}")
+            
     except Exception as e:
-        message = f"An error occurred: {e}"
         status="error"
         print(f"An error occurred: {e}")
     return {"message": message,"status":status,"retrieved":retrieved_object,"all objects":all_objects}
